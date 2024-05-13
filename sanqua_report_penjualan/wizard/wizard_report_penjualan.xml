@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wizard_report_penjualan" model="ir.ui.view">
+        <field name="name">Wizard Report Penjualan</field>
+        <field name="model">wizard.report.penjualan</field>
+        <field name="arch" type="xml">
+            <form string="Parameters">
+                <p>
+                Ini untuk print Report Penjualan Bersih
+                </p>
+                <footer>
+                    <button name="action_print_report" string="Print Report" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_penjualan_bersih" model="ir.actions.act_window">
+        <field name="name">Penjualan Bersih</field>
+        <field name="res_model">wizard.report.penjualan</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="Penjualan Bersih" action="action_wizard_penjualan_bersih" id="menu_wizard_penjualan" parent="sale.menu_sale_report" sequence="135"/>
+
+
+</odoo>

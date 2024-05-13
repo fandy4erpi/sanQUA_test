@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_purchase_request_form_view" model="ir.ui.view">
+        <field name="name">wizard.purchase.request.form.view</field>
+        <field name="model">wizard.purchase.request</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="purchase_request_id" invisible="0"/>
+                    <field name="company_id" invisible="1" />
+                    <field name="partner_id" invisible="0"/>
+                </group>
+                <notebook>
+                        <page name="wizard_purchase_request_lines" string="Purchase Request Lines">
+                            <field name="wizard_purchase_request_lines">
+                                <tree editable="bottom">
+                                    <field name="wizard_purchase_request_id" invisible="1" />
+                                    <field name="product_id" invisible="0"/>
+                                    <field name="quantity_plan" invisible="0" />
+                                    <field name="quantity" invisible="0" />
+                                    <field name="uom_id" invisible="0"/>
+                                    <field name="price_total" invisible="0"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                <footer>
+                    <button name="action_create_po" string="Create PO" type="object" class="btn-primary"/>
+                    <button name="cancel_button" string="Discard" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

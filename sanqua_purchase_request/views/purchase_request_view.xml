@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <!-- purchase_request action window -->
+    <record id="purchase_request_action" model="ir.actions.act_window">
+        <field name="name">Purchase Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <!-- <field name="context">{'search_default_group_sequence_state': 1}</field> -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No request for Purchase Request found. Let's create one!
+            </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+
+            </p>
+        </field>
+    </record>
+
+
+
+    <!-- purchase_request tree view -->
+    <record id="purchase_request_view_tree" model="ir.ui.view">
+        <field name="name">purchase_request_view_tree</field>
+        <field name="model">purchase.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="request_by"/>
+                <field name="request_date"/>
+                <field name="order_kategori"/>
+                <field name="state"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <!-- purchase_request form view -->
+    <record id="purchase_request_view_form" model="ir.ui.view">
+        <field name="name">purchase_request_view_form</field>
+        <field name="model">purchase.request</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Request">
+                <header>
+                    <button
+                        name="button_create_po"
+                        string="Create PO"
+                        type="object"
+                        class="oe34_highlight"
+                        attrs="{'invisible':[('state','=','close')]}"
+                    />
+                    <button
+                        name="button_close_po"
+                        string="Close PO"
+                        type="object"
+                        class="oe34_highlight"
+                        attrs="{'invisible':[('state','=','close')]}"
+                    />
+                    <field name="state" widget="statusbar" statusbar_colors="{'approve':'blue'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="open_po" type="object" class="oe_stat_button" icon="fa-address-card" attrs="{'invisible':[('summary_po_count','=',0)]}">
+                            <field name="summary_po_count" string="Purchase Order" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="request_by" />
+                            <field name="request_date" />
+                            <field name="order_kategori" />
+                        </group>
+                        <group>
+                            <field name="is_read" invisible="1"/>
+                            <field name="create_date" />
+                            <field name="company_id" invisible="0"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="purchase_request_lines" string="Purchase Request Lines">
+                            <field name="purchase_request_lines" attrs="{'readonly': [('is_read','!=',False)]}">
+                                <tree editable="bottom">
+                                    <field name="purchase_request_id" invisible="1" />
+                                    <field name="product_id" invisible="0"/>
+                                    <field name="name" string="Description"/>
+                                    <field name="price_total" invisible="0"/>
+                                    <field name="quantity" invisible="0" />
+                                    <field name="uom_id" invisible="0"/>
+                                    <field name="stock_on_hand" string="Stock On Hand"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <menuitem name="Purchase Request"
+        id="purchase_request_menu"
+        parent="purchase.menu_procurement_management"
+        sequence="0"
+        action="purchase_request_action" />
+
+</odoo>
